@@ -41,5 +41,18 @@ def delete_link(link_id):
     return '', 204
 
 
+@app.route('/v1/links/<int:link_id>', methods=['PUT'])
+def update_link(link_id):
+    global links
+
+    for link in links:
+        if link['id'] == link_id:
+            update_link = link
+            break
+
+    update_link.update(**request.json)
+    return jsonify(link), 200
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
