@@ -28,5 +28,18 @@ def insert_links():
     return jsonify(data), 201
 
 
+@app.route('/v1/links/<int:link_id>', methods=['DELETE'])
+def delete_link(link_id):
+    global links
+
+    for link in links:
+        if link['id'] == link_id:
+            delete_link = link
+            break
+
+    links.remove(delete_link)
+    return '', 204
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
